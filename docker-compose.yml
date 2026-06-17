@@ -1,0 +1,27 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      PORT: "5000"
+      NODE_ENV: production
+      FRONTEND_URL: http://localhost:3000
+    volumes:
+      - ./.env:/app/.env:ro
+    restart: unless-stopped
+    # No host port — frontend reaches backend via Docker network (nginx proxy)
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE: ""
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped

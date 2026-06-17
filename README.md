@@ -4,6 +4,8 @@
 
 ![Universal ShopCard — Zero-Chat A2A Commerce architecture](docs/usc-architecture-diagram.jpg)
 
+![Universal ShopCard app — single prompt, top 3 products, ShopCard sidebar](docs/usc-app-screenshot.png)
+
 ---
 
 ## Stack & ports
@@ -117,7 +119,8 @@ universal-shopcard/
 ├── .env.example
 ├── AGENTS.md                 # Cursor agent context
 ├── docs/
-│   └── usc-architecture-diagram.jpg
+│   ├── usc-architecture-diagram.jpg
+│   └── usc-app-screenshot.png
 ├── docker-compose.yml
 ├── backend/src/
 │   ├── index.ts              # Express entry, startup balance log

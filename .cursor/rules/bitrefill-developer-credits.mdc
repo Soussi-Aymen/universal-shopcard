@@ -1,0 +1,28 @@
+---
+description: Bitrefill developer credits and safe MCP checkout for USC. Use when configuring payment, checkout, buy-products, or hackathon demos.
+alwaysApply: false
+---
+
+# Bitrefill developer credits (USC)
+
+## What the credits are for
+
+Hackathon / developer balance on [bitrefill.com/account/developers](https://www.bitrefill.com/account/developers) pays for **`payment_method: balance`** purchases through the same API that powers MCP `buy-products` (USC uses Bitrefill API v2 under the hood).
+
+## $0 full-flow demo (recommended first)
+
+1. `.env`: `BITREFILL_INCLUDE_TEST_PRODUCTS=true`, `BITREFILL_PAYMENT_METHOD=balance`
+2. Prompt: `test gift card code` (or search for test products)
+3. Add **`test-gift-card-code`** to ShopCard → Checkout
+4. [Test products](https://docs.bitrefill.com/docs/test-products) are **free** — no balance deducted, real invoice + redemption code
+
+## Cents-level real purchase (optional)
+
+1. Set `BITREFILL_INCLUDE_TEST_PRODUCTS=false`
+2. Prompt for cheapest item (e.g. small eSIM / low denomination gift card)
+3. One checkout ≈ product face value (often ~€5 / a few hundred cents) from developer balance
+
+## Agents
+
+- Do **not** run autonomous `POST /api/checkout` curl tests unless the user asks in chat.
+- Prefer guiding the user through the UI with **test products** first.

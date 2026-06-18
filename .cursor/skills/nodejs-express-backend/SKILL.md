@@ -34,7 +34,7 @@ description: >-
 ## Scripts
 
 ```bash
-npm run dev    # ts-node-dev, port 5000
-npm run build  # tsc → dist/
-npm run lint
+pnpm run dev    # ts-node-dev, port 5000
+pnpm run build  # tsc → dist/
+pnpm run lint
 ```

@@ -11,7 +11,7 @@ description: >-
 ## Compiler
 
 - Keep `"strict": true` in `backend/tsconfig.json` and `frontend/tsconfig.json`.
-- Run `npm run build` and `npm run lint` in the affected package before finishing.
+- Run `pnpm run build` and `pnpm run lint` in the affected package before finishing.
 
 ## Typing rules
 

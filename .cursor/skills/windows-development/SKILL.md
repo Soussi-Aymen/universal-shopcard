@@ -14,7 +14,7 @@ description: >-
 - Use the tool `working_directory` parameter instead of shell `cd`.
 - Prefer built-in file tools (Read, Write, StrReplace, Glob) over `mkdir`, `rm`, `cp`, `echo`, or `cat`.
 - Wrap paths in double quotes when shell arguments contain spaces.
-- If PowerShell blocks npm scripts, use `cmd.exe /c npm run ...` or invoke `node` directly.
+- If PowerShell blocks package scripts, use `cmd.exe /c pnpm run ...` or invoke `node` directly.
 
 ## Paths
 

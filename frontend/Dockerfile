@@ -1,19 +1,20 @@
 # --- BUILD STAGE ---
 FROM node:20-alpine AS builder
 
+RUN corepack enable
+
 WORKDIR /usr/src/app
 
 ARG VITE_API_BASE=
 ENV VITE_API_BASE=$VITE_API_BASE
 
-COPY package*.json ./
-COPY .npmrc ./
+COPY package.json pnpm-lock.yaml .npmrc ./
 
-RUN npm ci
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-RUN npm run build
+RUN pnpm run build
 
 # --- RUN STAGE ---
 # Use unprivileged Nginx image to satisfy strict non-root security boundaries

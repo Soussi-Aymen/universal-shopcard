@@ -2,6 +2,10 @@
 node_modules/
 backend/node_modules/
 frontend/node_modules/
+.pnpm-store/
+
+# pnpm
+pnpm-debug.log*
 
 # Build outputs
 dist/

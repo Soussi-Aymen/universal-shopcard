@@ -32,28 +32,12 @@ description: >-
 ## Scripts
 
 ```bash
-npm install
-npm run dev     # Vite, port 5173
-npm run build
-npm run lint
+pnpm install
+pnpm run dev     # Vite, port 5173
+pnpm run build
+pnpm run lint
 ```
 
-## npm peer dependencies (React 19 + Docker)
+## pnpm (React 19 peers)
 
-**Problem:** `npm ci` in `frontend/Dockerfile` fails with `ERESOLVE` when a dependency's `peerDependencies` do not list React 19 (e.g. old `lucide-react@0.395` only allowed React 16–18).
-
-**Local dev may work** with `npm install --legacy-peer-deps` while **Docker fails** because the Dockerfile runs plain `npm ci` without that flag.
-
-**Fix checklist:**
-
-1. Prefer upgrading the conflicting package to a React-19-compatible version (USC uses `lucide-react@^1.20.0+`).
-2. Keep `frontend/.npmrc` with `legacy-peer-deps=true` so local install and Docker `npm ci` behave the same.
-3. Copy `.npmrc` into the Docker builder stage **before** `npm ci`.
-4. After changing `package.json`, regenerate `package-lock.json` with `npm install` in `frontend/`.
-5. `frontend/Dockerfile` builder image must be **Node 20+** (`node:20-alpine`) — Vite 8 does not run on Node 18.
-
-**Verify Docker build:**
-
-```bash
-docker compose build frontend
-```
+pnpm resolves peer dependencies without npm's `legacy-peer-deps` workaround. Each package pins `packageManager` in `package.json`; run `corepack enable` once locally. Docker builds use `pnpm install --frozen-lockfile` via Corepack in `frontend/Dockerfile`.

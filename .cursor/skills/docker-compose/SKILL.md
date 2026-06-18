@@ -33,16 +33,13 @@ description: >-
 PORT, NODE_ENV, GEMINI_API_KEY, BITREFILL_API_KEY, BITREFILL_API_URL, FRONTEND_URL
 ```
 
-## Frontend build pitfall: `npm ci` ERESOLVE
+## Frontend build (pnpm)
 
-If `docker compose build` fails on `frontend` with `ERESOLVE` / `lucide-react` peer React conflict:
+Docker builder uses `node:20-alpine` with Corepack + `pnpm install --frozen-lockfile`. Copy `package.json`, `pnpm-lock.yaml`, and `.npmrc` before install.
 
-- Root cause: Dockerfile runs `npm ci` strictly; React 19 + outdated peer ranges fail unlike local `--legacy-peer-deps`.
-- Ensure `frontend/.npmrc` exists (`legacy-peer-deps=true`) and is `COPY`d before `npm ci` in `frontend/Dockerfile`.
-- Upgrade incompatible packages (e.g. `lucide-react` ≥ 1.20 for React 19).
-- Regenerate lockfile: `cd frontend && npm install`.
+**Node version:** `frontend/Dockerfile` builder must use `node:20-alpine` or newer — Vite 8 fails on Node 18.
 
-**Node version:** `frontend/Dockerfile` builder must use `node:20-alpine` or newer — Vite 8 fails on Node 18 (`CustomEvent is not defined`).
+After changing `package.json`, regenerate the lockfile: `cd frontend && pnpm install`.
 
 See also `.cursor/skills/react-frontend/SKILL.md`.
 

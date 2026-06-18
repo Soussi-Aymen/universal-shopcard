@@ -12,11 +12,13 @@
 
 | Layer | Tech | Port |
 |-------|------|------|
-| Frontend | React 19, TypeScript, Vite, vanilla CSS | `3000` (Docker) / `5173` (dev) |
-| Backend | Node.js, Express, TypeScript, Gemini SDK | `5000` (local dev only) |
+| Frontend | React 19, TypeScript, Vite, vanilla CSS, **pnpm** | `3000` (Docker) / `5173` (dev) |
+| Backend | Node.js, Express, TypeScript, Gemini SDK, **pnpm** | `5000` (local dev only) |
 | External | Bitrefill API v2 (same backend as MCP tools) | `https://api.bitrefill.com/v2` |
 
 In Docker, only the frontend is exposed on port **3000**. Nginx proxies `/api/*` and `/health` to the backend container on the internal network.
+
+**Package manager:** Both apps use **pnpm** with pinned `packageManager` versions and `pnpm-lock.yaml` lockfiles. Docker builds run `pnpm install --frozen-lockfile` for reproducible, auditable installs (stricter than npm's flat `node_modules` layout).
 
 ---
 
@@ -79,12 +81,14 @@ Open **http://localhost:3000**.
 
 ### Local development
 
+Requires [Node.js 20+](https://nodejs.org/) and **pnpm** (`corepack enable` once, then packages use the pinned version from `packageManager`).
+
 **Backend** (terminal 1):
 
 ```bash
 cd backend
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Runs on **http://localhost:5000**.
@@ -93,8 +97,8 @@ Runs on **http://localhost:5000**.
 
 ```bash
 cd frontend
-npm install --legacy-peer-deps
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Runs on **http://localhost:5173** and calls `http://localhost:5000` by default (`VITE_API_BASE`).
@@ -151,8 +155,8 @@ universal-shopcard/
 ## Quality checks
 
 ```bash
-cd backend && npm run build && npm run lint
-cd frontend && npm run build && npm run lint
+cd backend && pnpm run build && pnpm run lint
+cd frontend && pnpm run build && pnpm run lint
 ```
 
 ---

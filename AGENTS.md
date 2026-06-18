@@ -12,8 +12,8 @@ Hackathon: [PROMPT x PURCHASE — Bitrefill 2026](https://stadium.joinwebzero.co
 
 | Layer | Tech | Port |
 |-------|------|------|
-| Frontend | React 19, TypeScript, Vite, vanilla CSS | `3000` (Docker) / `5173` (dev) |
-| Backend | Node.js, Express, TypeScript, Gemini SDK | `5000` |
+| Frontend | React 19, TypeScript, Vite, vanilla CSS, pnpm | `3000` (Docker) / `5173` (dev) |
+| Backend | Node.js, Express, TypeScript, Gemini SDK, pnpm | `5000` |
 | External | Bitrefill MCP JSON-RPC | `https://api.bitrefill.com/mcp` |
 
 ## Where to change what
@@ -75,11 +75,11 @@ FRONTEND_URL=http://localhost:3000
 # Docker (from repo root)
 docker compose up --build
 
-# Local dev — backend
-cd backend && npm install && npm run dev
+# Local dev — backend (Node 20+, pnpm via corepack enable)
+cd backend && pnpm install && pnpm run dev
 
 # Local dev — frontend (separate terminal)
-cd frontend && npm install --legacy-peer-deps && npm run dev
+cd frontend && pnpm install && pnpm run dev
 ```
 
 Frontend API base: `VITE_API_BASE` or default `http://localhost:5000` in `App.tsx`.
@@ -89,7 +89,7 @@ Frontend API base: `VITE_API_BASE` or default `http://localhost:5000` in `App.ts
 - **TypeScript strict** (`strict: true`) in both `backend/` and `frontend/` — no `any`
 - **Surgical edits** — touch only files required for the task
 - **Windows** — use tool `working_directory` instead of shell `cd`; quote paths with spaces
-- **Verify** — `npm run build` and `npm run lint` in each package before finishing
+- **Verify** — `pnpm run build` and `pnpm run lint` in each package before finishing
 - **Secrets** — env vars only; never hardcode keys in source
 
 ## API reference
